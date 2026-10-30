@@ -1,0 +1,46 @@
+---
+layout: runbook
+title: '#4471 · split date causes'
+owner: support desk
+status: triaged
+reviewed: 2026-10-30
+signature: v1.eyJzdWIiOiIzMTU1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzNjkwODIsImV4cCI6MTc5MzQ1NTQ4Mn0.eTVz63Gfezgmggdn90FMH-3fLqKDw1USq0tL3QZu0XI
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The 4 October export shows that #4471 contains distinct date failures. Keep the source ticket's cause analysis separate from the new repository issues created for each problem.
+
+<Callout kind="warn">
+The original incident page describes one parser failure. The export and tenant directory show a separate booking-form hint failure too.
+</Callout>
+
+## What the reports show
+
+<CauseTable ticket={4471} />
+
+The table classifies each unique report by the tenant's locale, booking form, and report channel. The intake tag and browser locale are clues, not the cause. Its rightmost column describes the original support ticket; the repository issues for this split are separate tickets.
+
+## Causes to track separately
+
+### Shared parser: month-first parsing
+
+The shared parser reads every date month-first. In a day-first tenant, a date such as 7 April (`07/04`) can be read as July 4. This affects reports across app, email, and form channels.
+
+Repository issue: **[Shared date parser reads day-first dates as month-first](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/1)**.
+
+### booking-v3: misleading date hint
+
+The booking-v3 form prints `MM/DD/YYYY`, including for day-first tenant locales. People follow that hint, while the form interprets the date according to the tenant locale. This cause is limited to booking-v3 form submissions.
+
+Repository issue: **[booking-v3 date hint conflicts with day-first tenant locales](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/2)**.
+
+## Counting and limits
+
+The export contains overlapping report pages. The table deduplicates by report ID before counting. Its counts describe the supplied 2026-10-04 snapshot, not reports the desk may have merged since then. Reports marked as one-day moves in `desk-notes.json` remain in the parser group under the tenant and channel rules.
+
+<RenderStamp {signature} />

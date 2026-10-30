@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#4471 · split date causes · support kb</title>
+  <style>
+    :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#6b6a66; --line:#e3e0d8; --accent:#2f6f5e; --warn:#b4501f; --warn-bg:#fbeee6; --note-bg:#eef5f2; --mono:ui-monospace,Menlo,monospace; }
+    body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,sans-serif; }
+    main { max-width:760px; margin:0 auto; padding:2rem 16px 4rem; }
+    a { color:var(--accent); }
+    .crumb,.meta,.stamp { font-family:var(--mono); color:var(--muted); font-size:.85rem; }
+    h1 { line-height:1.2; }
+    .meta { display:flex; flex-wrap:wrap; gap:.5rem 1rem; }
+    aside { border-left:4px solid var(--warn); padding:.5rem 1rem; margin:1rem 0; background:var(--warn-bg); }
+    table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:.92rem; }
+    th,td { border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; }
+    code { font-family:var(--mono); font-size:.88em; }
+    .note { color:var(--muted); font-size:.85rem; }
+    footer { margin-top:3rem; color:var(--muted); font-size:.8rem; border-top:1px solid var(--line); padding-top:1rem; }
+  </style>
+</head>
+<body><main>
+  <a class="crumb" href="/kb">support desk · kb</a>
+  <h1>#4471 · split date causes</h1>
+  <p class="meta"><span>owner <b>support desk</b></span><span>triaged</span><span>reviewed 2026-10-30</span></p>
+  <p>The 4 October export shows that #4471 contains distinct date failures. Keep the source ticket's cause analysis separate from the new repository issues created for each problem.</p>
+  <aside>The original incident page describes one parser failure. The export and tenant directory show a separate booking-form hint failure too.</aside>
+  <h2>What the reports show</h2>
+  <p><strong>412</strong> unique reports merged into #4471 · <strong>2</strong> causes</p>
+  <table>
+    <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>original ticket</th></tr></thead>
+    <tbody>
+      <tr><td><code>parser</code></td><td>379</td><td>parser ×356 · hint ×23</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>#4471</td></tr>
+      <tr><td><code>hint</code></td><td>33</td><td>hint ×18 · parser ×15</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>no ticket of its own</td></tr>
+    </tbody>
+  </table>
+  <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
+  <p>The table classifies each unique report by tenant locale, booking form, and channel. The intake tag and browser locale are clues, not the cause. The original-ticket column is separate from repository issues created for this split.</p>
+  <h2>Causes to track separately</h2>
+  <h3>Shared parser: month-first parsing</h3>
+  <p>The shared parser reads every date month-first. In a day-first tenant, a date such as 7 April (<code>07/04</code>) can be read as July 4. This affects app, email, and form reports.</p>
+  <p>Repository issue: <strong><a href="https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/1">Shared date parser reads day-first dates as month-first</a></strong>.</p>
+  <h3>booking-v3: misleading date hint</h3>
+  <p>The booking-v3 form prints <code>MM/DD/YYYY</code>, including for day-first tenant locales. People follow the hint, while the form interprets the date according to the tenant locale. This cause is limited to booking-v3 form submissions.</p>
+  <p>Repository issue: <strong><a href="https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/2">booking-v3 date hint conflicts with day-first tenant locales</a></strong>.</p>
+  <h2>Counting and limits</h2>
+  <p>The export contains overlapping report pages. The table deduplicates by report ID before counting. Its counts describe the supplied 2026-10-04 snapshot, not reports the desk may have merged since then. Reports marked as one-day moves remain in the parser group under the tenant and channel rules.</p>
+  <p class="stamp">desk ref <b>DR-1PZ9-NYSF</b></p>
+  <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+</main></body></html>
