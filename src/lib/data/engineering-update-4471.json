@@ -1,0 +1,15 @@
+{
+  "ticket": 4471,
+  "closedAt": "2026-10-05",
+  "source": "Challenge page engineering update supplied by the student",
+  "parser": {
+    "outcome": "FIXED",
+    "message": "fix(dates): parse dd/mm for eu locales",
+    "stateReason": "completed"
+  },
+  "hint": {
+    "outcome": "WON'T FIX",
+    "message": "booking-v3 form retired",
+    "stateReason": "not_planned"
+  }
+}

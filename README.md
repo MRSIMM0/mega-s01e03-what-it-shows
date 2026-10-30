@@ -39,5 +39,7 @@ Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 
 - [KB page source](src/routes/kb/incidents/4471-causes/+page.svx)
 - [Rendered HTML preview](previews/kb/incidents/4471-causes.html)
-- [Parser issue](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/1)
-- [Booking-v3 hint issue](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/2)
+- [Parser issue](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/1): 379 reports; fixed, closed as completed.
+- [Booking-v3 hint issue](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/2): 33 reports; won't fix because booking-v3 was retired, closed as not planned.
+
+The Challenge page's engineering update closed #4471 on 5 October 2026. The report counts remain those of the supplied 4 October export; the update supplies resolutions, not new counts.

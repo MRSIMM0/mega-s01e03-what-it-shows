@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · split date causes'
 owner: support desk
-status: triaged
+status: closed
 reviewed: 2026-10-30
 signature: v1.eyJzdWIiOiIzMTU1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzNjkwODIsImV4cCI6MTc5MzQ1NTQ4Mn0.eTVz63Gfezgmggdn90FMH-3fLqKDw1USq0tL3QZu0XI
 ---
@@ -13,13 +13,13 @@ signature: v1.eyJzdWIiOiIzMTU1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-The 4 October export shows that #4471 contains distinct date failures. Keep the source ticket's cause analysis separate from the new repository issues created for each problem.
+The 4 October export shows two date failures in #4471. The desk's engineering update closed #4471 on 5 October: the parser was fixed, and the booking-v3 hint was closed without a fix because the form was retired.
 
 <Callout kind="warn">
-The original incident page describes one parser failure. The export and tenant directory show a separate booking-form hint failure too.
+The exported incident page is a historical snapshot. It describes one parser failure with a fix queued; the cause split and the 5 October engineering outcomes below supersede that account.
 </Callout>
 
-## What the reports show
+## What the reports showed on 4 October
 
 <CauseTable ticket={4471} />
 
@@ -33,14 +33,22 @@ The shared parser reads every date month-first. In a day-first tenant, a date su
 
 Repository issue: **[Shared date parser reads day-first dates as month-first](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/1)**.
 
+Outcome on 5 October: **FIXED** — `fix(dates): parse dd/mm for eu locales`. This issue is closed as `completed`.
+
 ### booking-v3: misleading date hint
 
 The booking-v3 form prints `MM/DD/YYYY`, including for day-first tenant locales. People follow that hint, while the form interprets the date according to the tenant locale. This cause is limited to booking-v3 form submissions.
 
 Repository issue: **[booking-v3 date hint conflicts with day-first tenant locales](https://github.com/MRSIMM0/mega-s01e03-what-it-shows/issues/2)**.
 
+Outcome on 5 October: **WON'T FIX** — `booking-v3 form retired`. This issue is closed as `not_planned`; retiring the form does not mean its hint was fixed.
+
 ## Counting and limits
 
-The export contains overlapping report pages. The table deduplicates by report ID before counting. Its counts describe the supplied 2026-10-04 snapshot, not reports the desk may have merged since then. Reports marked as one-day moves in `desk-notes.json` remain in the parser group under the tenant and channel rules.
+The export contains overlapping report pages. The table deduplicates by report ID before counting. Its counts describe the supplied 2026-10-04 snapshot. The 5 October engineering update changes the resolution of each cause and supplies no replacement report counts. Reports marked as one-day moves in `desk-notes.json` remain in the parser group under the tenant and channel rules.
+
+## Update source
+
+The student supplied the Challenge page's engineering update: `#4471 · closed 05 oct`, parser `FIXED` with `fix(dates): parse dd/mm for eu locales`, and hint `WON'T FIX` with `booking-v3 form retired`.
 
 <RenderStamp {signature} />
